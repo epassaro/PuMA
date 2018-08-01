@@ -1,6 +1,5 @@
 # PumaCoding2018
-## Proyecto: data_aquisition
-### Objetivos y lineamientos generales
+## Proyecto: data_acquisition
 #### Primera parte: documentacion
 1. Explicar y documentar como funciona la toma de datos, desde la recepcion de la senial hasta la creacion del archivo filterbank. Subirlo a la Wiki-Puma.
 2. Hacer un diagrama de los procesos que dispara *pulsar_obs*, localizando los ejecutables involucrados y sus codigos fuente. Subirlo a la Wiki-Puma.
