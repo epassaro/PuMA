@@ -9,6 +9,6 @@ Crear un script que comience varias observaciones consecutivas en forma automati
   * Observing time (minutes)
   * Average Data
 3. Crear directorio del dia y subdirectorios para cada observacion (charlar convencion)
-4. Comenzar primera observacion. Al finalizar, moverla al subdirectorio correspondiente. Comenzar la segunda. Moverla. Etc.
+4. Comenzar la primer observacion. Al finalizar, moverla al subdirectorio correspondiente. Comenzar la segunda. Moverla. Etc.
 
 **Extra:** Diseniar sistema de control para informar al observador de observaciones fallidas, atrasos, etc. Puede ser en pantalla, o a traves de un archivo *obs.info*.
