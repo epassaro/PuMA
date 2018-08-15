@@ -1,6 +1,16 @@
 #/bin/bash
 
 #####################################
+# 0) Some error checking:	
+#####################################
+
+if [ ! -f ./*$1*.fil ]; then
+	echo 'ERROR: directory must contain the pulsar observation.'
+	echo 'e.g.: ds256_B1240-64_020171023_104155.fil'
+	exit
+fi
+
+#####################################
 # 1) Pulsar information:	
 #####################################
 

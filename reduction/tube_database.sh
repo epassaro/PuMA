@@ -33,34 +33,31 @@ phase=0.0
 mkdir reduc_on_$TIMESTAMP
 mkdir reduc_off_$TIMESTAMP
 
-
 ####################################
 # REDUCTION STARTS, ON HYDRA:
 ####################################
-
 cd reduc_on_$TIMESTAMP
-
 # Making mask:
 rfifind -time $timemask -zerodm -o mask_pul_cal_on ../$pulcalfil_on
 # Folding:
 prepfold -nsub $nsub -n $nbins -p $period -nopsearch -dm $dm -nodmsearch -phs $phase -o prepfold_$TIMESTAMP_tube_on -noxwin ./$pulcalfil $mask_cal_on
-
-####################################
-# EDITING ON.PFD:
-####################################
-
+# Editing tube_on.pfd:
+psredit -c rcvr:name=AI
+psredit -c be:name=EB120 -m prepfold_$TIMESTAMP_tube_on.pfd
+psredit -c rcvr:name=AI -m prepfold_$TIMESTAMP_tube_on.pfd
+psredit -c coord=09:18:05.651-12:05:43.99 -m prepfold_$TIMESTAMP_tube_on.pfd
 
 ####################################
 # REDUCTION STARTS, OFF HYDRA:
 ####################################
 cd ..
 cd reduc_off_$TIMESTAMP
-
 # Making mask:
 rfifind -time $timemask -zerodm -o mask_pul_cal_of ../$pulcalfil_of
 # Folding:
 prepfold -nsub $nsub -n $nbins -p $period -nopsearch -dm $dm -nodmsearch -phs $phase -o prepfold_$TIMESTAMP_tube_off -noxwin ./$pulcalfil $mask_cal_off
-####################################
-# EDITING OFF.PFD:
-####################################
-
+# Editing tube_off.pfd:
+psredit -c rcvr:name=AI
+psredit -c be:name=EB120 -m prepfold_$TIMESTAMP_tube_off.pfd
+psredit -c rcvr:name=AI -m prepfold_$TIMESTAMP_tube_off.pfd
+psredit -c coord=09:18:05.651-14:05:43.99 -m prepfold_$TIMESTAMP_tube_off.pfd
