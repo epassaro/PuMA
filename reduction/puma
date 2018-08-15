@@ -1,0 +1,40 @@
+#####################################
+#                                   #
+#####################################
+#! /bin/bash
+
+
+call_help() {
+    echo; echo -e " \e[1;7m PuMA MAIN SCRIPT \e[0m"; echo
+    source ./src/puma_help.sh
+}
+
+call_presto() {
+    echo; echo -e " \e[1;7m RUNNING 'PRESTO' SCRIPT \e[0m"; echo
+    source ./src/puma_presto.sh $1
+}
+
+call_pfd() {
+    echo; echo -e " \e[1;7m RUNNING 'PFD' SCRIPT \e[0m"; echo
+    source ./src/puma_pfd.sh $1
+}
+
+# logfile (muy) provisorio
+call_log() {
+    echo "[$(date +"%d/%m/%y %H:%M:%S")]: 'user' ran this script on '$1'" >> $HOME/.puma_history.log
+}
+
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ "$1" == "-p" ] || [ "$1" == "--pfd-only" ] || [ "$1" == "" ]; then
+    call_help
+    exit; fi
+
+if [ "$2" == "-p" ] || [ "$2" == "--pfd-only" ]; then
+    call_pfd
+    exit; fi
+
+call_presto $1
+call_pfd $1
+call_log $1
+
+exit
