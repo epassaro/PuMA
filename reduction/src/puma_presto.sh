@@ -7,7 +7,7 @@
 if [ ! -f ./*$1*.fil ]; then
 	echo 'ERROR: directory must contain the pulsar observation.'
 	echo 'e.g.: ds256_B1240-64_020171023_104155.fil'
-	exit
+	return 1
 fi
 
 #####################################
@@ -66,7 +66,7 @@ if [ $dmsearch == "y" ] || [ $dmsearch == "yes" ]; then
 		dmsearch="-nodmsearch"
 	else
 		echo "ERROR: Wrong DM answer"
-		exit
+		return 1
 	fi
 fi
 
@@ -90,7 +90,7 @@ if [ $mask_pul_ans == "y" ] || [ $mask_pul_ans == "yes" ]; then
 			mask_pul=""
 			else
 				echo "ERROR: Wrong time interval answer"
-				exit
+				return 1
 			fi
 		fi
 	else
@@ -135,3 +135,5 @@ echo '     #         #        '
 echo '						  '   
 echo '	 puma_presto.sh: DONE '
 echo '########################'
+
+return 0
