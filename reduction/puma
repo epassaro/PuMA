@@ -19,7 +19,7 @@ call_pfd() {
 }
 
 call_log() {
-    echo "[$(date +"%d/%m/%y %H:%M:%S")]: $PFD on '$PULSAR'" >> $HOME/.puma_history.log
+    echo "[$(date +"%d/%m/%y %H:%M:%S")]: $OPERATION on '$PULSAR' with exit code $STATUS" >> $HOME/.puma_history.log
 }
 
 
@@ -30,9 +30,9 @@ while getopts ":hp" OPT; do
         call_help
         exit 0
         ;;
-        
+    
     p)  
-        PFD="PFD"
+        PFD=true
         ;;
 
     \?)
@@ -55,12 +55,19 @@ fi
 
 PULSAR="$1"
 
-if [ -z $PFD ]; then
-    PFD="PRESTO & PFD"
+
+if [ ! $PFD ]; then
+    
     call_presto
+    STATUS=$?
+    OPERATION="PRESTO"
+    call_log
+
 fi
 
 call_pfd
+STATUS=$?
+OPERATION="PFD"
 call_log
 
 
