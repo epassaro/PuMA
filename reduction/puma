@@ -1,8 +1,7 @@
-#####################################
-#                                   #
-#####################################
+###########################################
+#                 P u M A                 #
+###########################################
 #! /bin/bash
-
 
 call_help() {
     echo; echo -e " \e[1;7m PuMA MAIN SCRIPT \e[0m"; echo
@@ -11,30 +10,58 @@ call_help() {
 
 call_presto() {
     echo; echo -e " \e[1;7m RUNNING 'PRESTO' SCRIPT \e[0m"; echo
-    source ./src/puma_presto.sh $1
+    source ./src/puma_presto.sh $PULSAR
 }
 
 call_pfd() {
     echo; echo -e " \e[1;7m RUNNING 'PFD' SCRIPT \e[0m"; echo
-    source ./src/puma_pfd.sh $1
+    source ./src/puma_pfd.sh $PULSAR
 }
 
-# logfile (muy) provisorio
 call_log() {
-    echo "[$(date +"%d/%m/%y %H:%M:%S")]: 'user' ran this script on '$1'" >> $HOME/.puma_history.log
+    echo "[$(date +"%d/%m/%y %H:%M:%S")]: $PFD on '$PULSAR'" >> $HOME/.puma_history.log
 }
 
 
-if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ "$1" == "-p" ] || [ "$1" == "--pfd-only" ] || [ "$1" == "" ]; then
-    call_help
-    exit; fi
+while getopts ":hp" OPT; do
+    case $OPT in
 
-if [ "$2" == "-p" ] || [ "$2" == "--pfd-only" ]; then
-    call_pfd
-    exit; fi
+    h)
+        call_help
+        exit 0
+        ;;
+        
+    p)  
+        PFD="PFD"
+        ;;
 
-call_presto $1
-call_pfd $1
-call_log $1
+    \?)
+        echo; echo "Incorrect options provided. Type: 'puma -h' for help."
+        echo; echo
+        exit 1
+        ;;
+    esac
 
-exit
+done
+
+shift "$((OPTIND-1))"
+
+
+if [ -z $1 ]; then
+    echo; echo "Pulsar name is mandatory. Type: 'puma -h' for help."
+    echo; echo
+    exit 1
+fi
+
+PULSAR="$1"
+
+if [ -z $PFD ]; then
+    PFD="PRESTO & PFD"
+    call_presto
+fi
+
+call_pfd
+call_log
+
+
+exit 0;
