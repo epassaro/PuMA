@@ -5,17 +5,17 @@
 
 call_help() {
     echo; echo -e " \e[1;7m PuMA MAIN SCRIPT \e[0m"; echo
-    source ./src/puma_help.sh
+    source $PUMA_GIT/reduction/src/puma_help.sh
 }
 
 call_presto() {
     echo; echo -e " \e[1;7m RUNNING 'PRESTO' SCRIPT \e[0m"; echo
-    source ./src/puma_presto.sh $PULSAR
+    source $PUMA_GIT/reduction/src/puma_presto.sh $PULSAR
 }
 
 call_pfd() {
     echo; echo -e " \e[1;7m RUNNING 'PFD' SCRIPT \e[0m"; echo
-    source ./src/puma_pfd.sh $PULSAR
+    source $PUMA_GIT/reduction/src/puma_pfd.sh $PULSAR
 }
 
 call_log() {
