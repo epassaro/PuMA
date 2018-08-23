@@ -6,6 +6,8 @@
 
 #
 
+whereami=$(pwd)
+
 numfilfiles=(*.fil)
 numfilfiles=${#numfilfiles[@]}
 if [ $numfilfiles -ne 2 ]; then
@@ -76,3 +78,13 @@ prepfold -nsub $nsub -n $nbins -p $period -nopsearch -dm $dm -nodmsearch -phs $p
 psredit -c rcvr:name=AI -c be:name=EB120 -c coord=09:18:05.651-14:05:43.99 -c type=FluxCal-Off -m prepfold_$TIMESTAMP_tube_on.pfd
 cp prepfold_$TIMESTAMP_tube_off.pfd ../../fcal_files/$TIMESTAMP_off.fcal
 
+####################################
+# UPDATING DATABASE:
+###################################
+cd ../../fcal_files
+pac -w -u fcal
+fluxcal -f -d database.txt
+
+cd $whereami
+
+exit 0
